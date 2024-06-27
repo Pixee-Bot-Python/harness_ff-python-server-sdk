@@ -1,4 +1,3 @@
-import random
 import threading
 import time
 import traceback
@@ -24,6 +23,7 @@ from .sdk_logging_codes import (info_poll_started, info_polling_stopped,
                                 warning_fetch_group_by_id_failed)
 from .sse_client import SSEClient
 from .util import log
+import secrets
 
 BACK_OFF_IN_SECONDS = 5
 
@@ -104,7 +104,7 @@ class StreamProcessor(Thread):
 
                 # Calculate back of sleep
                 sleep = (BACK_OFF_IN_SECONDS * 2 ** retries +
-                         random.uniform(0, 1))
+                         secrets.SystemRandom().uniform(0, 1))
 
                 warn_stream_retrying(f'{sleep.__str__()}s')
                 time.sleep(sleep)
