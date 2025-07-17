@@ -182,8 +182,7 @@ class CfClient(object):
         response = retryable_authenticate(client=client, body=body).parsed
         self._auth_token = response.auth_token
 
-        decoded = decode(self._auth_token, options={
-            "verify_signature": False})
+        decoded = decode(self._auth_token, options={"verify_signature": True})
         self._environment_id = decoded["environment"]
         self._cluster = decoded["clusterIdentifier"]
         if not self._cluster:
